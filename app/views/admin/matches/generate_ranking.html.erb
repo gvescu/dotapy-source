@@ -1,0 +1,16 @@
+<div class="row text-center">
+	<div class="large-12 columns">
+		<h2>Actualizar ránking</h2>
+	</div>
+</div>
+
+<div class="row text-center">
+	<div class="large-12 columns">
+		<div class="panel callout">
+			<p><big><strong><u>OJO!</u></strong> Asegurarse que todos los datos de las partidas estén correctos antes de generar un ránking, ya que una vez generado, <strong><u>NO HAY VUELTA ATRÁS</u></strong>. Los datos erróneos ya formarán parte de las estadísticas y la única forma de revertir los cambios sería hacer todo el ránking de vuelta desde el comienzo.</big></p>
+			<p class="text-right"><em>– GavoKaotik</em></p>
+		</div>
+		<p>Se actualizarán el ránking general y el ránking por roles (carry, support, mid, offlane) al <strong><%=l Date.today, format: :long %></strong>. Una vez que se procesen las partidas y se agreguen al ránking, ya formarán parte de la estadística y no podrán actualizarse. ¿Continuar?</p>
+		<%= link_to "Actualizar ránking", admin_ranking_url(g: true), data: {confirm: '¿Actualizar el ránking?'}, class: "button large" %>
+	</div>
+</div>

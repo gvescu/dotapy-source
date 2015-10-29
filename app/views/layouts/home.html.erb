@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "DotaPy" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'Sitio dedicado a la escena de Dota 2 en Paraguay. Noticias, torneos, ránking.' %>">
+
+    <meta property="og:image" content="/assets/article/fb_large_thumb.jpg" />
+    <meta property="og:site_name" content="DotaPy" />
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+
+    <%= render partial: 'layouts/social' %>
+    <%= render partial: 'layouts/analytics' %>
+  </head>
+
+  <body>
+
+    <!-- HOME HEADER -->
+    <%= render partial: "layouts/header" %>
+
+    <!-- SPINNER -->
+    <%= yield :spinner %>
+
+    <!-- NOTICIAS -->
+    <%= yield :news %>
+
+    <!-- BOTTOM AD -->
+    <div class="row text-center">
+      <div class="large-12 columns">
+        <hr>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- AdHorizontal -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-7576783862770455"
+     data-ad-slot="1049031729"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script> 
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <%= render partial: "layouts/footer" %>
+
+  </body>
+</html>

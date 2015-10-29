@@ -1,0 +1,44 @@
+<%= content_for :spinner do %>
+
+<div class="row">
+  <div class="large-12 columns">
+    <hr>
+    <ul data-orbit data-options="slide_number:false;bullets:false">
+      <% @spinner.each do |article| %>
+      <li>
+        <%= link_to (image_tag article.header.url(:spinner)), article_slug_path(id:article.id, slug:article.slug) %>
+        <div class="orbit-caption">
+          <strong><%= article.title %></strong>
+        </div>
+      </li>
+      <% end %>
+    </ul>
+    <hr>
+  </div>
+</div>
+
+<% end %>
+
+
+
+<%= content_for :news do %>
+
+	<div class="row" data-equalizer>
+		<% i = 0 %>
+		<% @articles.each do |article| %>
+		<div class="large-4 columns" data-equalizer-watch>
+			<%= image_tag article.header.url(:index), class: "th" %>
+			<h4 style="margin-top:15px"><%= link_to article.title, article_slug_path(id:article.id, slug:article.slug) %></h4>
+			<p><%= article.description %> <%= link_to "Ver más >", article_slug_path(id:article.id, slug:article.slug) %></a></p>
+		</div>
+		<% i += 1 %>
+		<% if i == 3 %>
+			<% i = 0 %>
+			</div>
+			<div class="row" data-equalizer>
+		<% end %>
+		
+		<% end %>
+    </div>
+
+<% end %>

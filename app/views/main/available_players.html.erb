@@ -1,0 +1,42 @@
+<%= content_for :title, "Jugadores habilitados" %>
+
+<div class="row">
+	<div class="large-12 columns">
+		<h1>Jugadores registrados en DotaPy</h1>
+		<%= link_to "Actualizar nombres de jugadores", admin_update_users_path(callback: request.url), class: "button tiny" %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		
+		<table width="100%">
+			<thead>
+				<tr>
+					<th width="25%">Nombre de jugador</th>
+					<th width="15%">País de origen</th>
+					<th width="15%">País actual</th>
+					<th width="15%">Steam</th>
+					<th width="15%">Register IP</th>
+					<th width="15%">Last Login IP</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @players.each do |u| %>
+				<tr>
+					<% @country = Country.new(u.location.gsub(" ", "").split(",").last) rescue nil %>
+					<% @register_ip = GeoIP.new('app/assets/GeoLiteCity.dat').city(u.register_ip) %>
+					<% @last_login_ip = GeoIP.new('app/assets/GeoLiteCity.dat').city(u.last_login_ip) %>
+					<td><%= link_to u.nickname, player_profile_slug_path(id:u.id, slug:u.nickname.parameterize), target: "_blank" %></td>
+					<td><%= (image_tag "flags_iso/24/#{u.birth_country.downcase}.png", alt: Country.new(u.birth_country).translation('es'), title:Country.new(u.birth_country).translation('es'), style: "margin-right: 10px") unless u.birth_country.blank? %><%= Country.new(u.birth_country).translation('es') rescue '--' %></td>
+					<td><%= (image_tag "flags_iso/24/#{u.home_country.downcase}.png", alt: Country.new(u.birth_country).translation('es'), title:Country.new(u.home_country).translation('es'), style: "margin-right: 10px") unless u.home_country.blank? %><%= Country.new(u.home_country).translation('es') rescue '--' %></td>
+					<td><%= (image_tag "flags_iso/24/#{@country.alpha2.downcase}.png", alt: @country.translation('es'), title: @country.translation('es'), style: "margin-right: 10px") unless @country.blank? %><%= @country.translation('es') rescue '--' %></td>
+					<td><%= ((image_tag "flags_iso/24/#{@register_ip.country_code2.downcase}.png", alt: Country.new(@register_ip.country_code2).translation('es'), title:Country.new(@register_ip.country_code2).translation('es'), style: "margin-right: 10px") unless @register_ip.blank?) rescue "--" %><%= Country.new(@register_ip.country_code2).translation('es') rescue '--' %></td>
+					<td><%= ((image_tag "flags_iso/24/#{@last_login_ip.country_code2.downcase}.png", alt: Country.new(@last_login_ip.country_code2).translation('es'), title:Country.new(@last_login_ip.country_code2).translation('es'), style: "margin-right: 10px") unless @last_login_ip.blank?) rescue '--' %><%= Country.new(@last_login_ip.country_code2).translation('es') rescue '--' %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+	</div>
+</div>

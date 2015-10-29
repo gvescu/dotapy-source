@@ -1,0 +1,12 @@
+$("#team1").html("");
+$("#team2").html("");
+
+<% @team1.each do |u| %>
+	$("#team1").append("<%= escape_javascript u %>");
+	$("#team1").append("<br>");
+<% end %>
+
+<% @team2.each do |u| %>
+	$("#team2").append("<%= escape_javascript u %>");
+	$("#team2").append("<br>");
+<% end %>

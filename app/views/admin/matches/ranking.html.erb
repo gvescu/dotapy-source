@@ -1,0 +1,131 @@
+<div class="row text-center">
+	<h2>DotaPy Ránking</h2>
+	<% unless @last_update.nil? %>
+	<p><em>Actualizado por última vez el <strong><%=l @last_update, format: :long%></strong></em></p>
+	<% end %>
+</div>
+
+<div class="row text-center">
+	<div class="large-12 columns">
+		<ul class="tabs" data-tab data-options="deep_linking:true">
+			<li class="tab-title active"><%= link_to "Ránking general", "#general" %></li>
+			<li class="tab-title"><%= link_to "Ránking de carries", "#carry" %></li>
+			<li class="tab-title"><%= link_to "Ránking de supports", "#support" %></li>
+			<li class="tab-title"><%= link_to "Ránking de mids", "#mid" %></li>
+			<li class="tab-title"><%= link_to "Ránking de offlanes", "#offlane" %></li>
+		</ul>
+		<div class="tabs-content">
+			<div class="content active" id="general">
+				<% unless @ranking.length == 0 %>
+				<table width="100%">
+					<thead>
+						<tr>
+							<th width="5%" class="text-right">Posición</th>
+							<th>Nickname</th>
+							<th width="10%" class="text-center">Puntos</th>
+							<th width="5%" class="text-center">W</th>
+							<th width="5%" class="text-center">L</th>
+							<th width="5%" class="text-center">K</th>
+							<th width="5%" class="text-center">D</th>
+							<th width="5%" class="text-center">A</th>
+							<th width="5%" class="text-center">LH</th>
+							<th width="5%" class="text-center">DN</th>
+							<th width="5%" class="text-center">GPM</th>
+							<th width="5%" class="text-center">XPM</th>
+							<th width="5%" class="text-center">P</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @ranking.each do |r| %>
+						<tr>
+							<td class="text-right"><%= r.current_position %></td>
+							<td><%= r.user.nickname %></td>
+							<td class="text-center"><%= r.score %></td>
+							<td class="text-center"><%= r.wins %></td>
+							<td class="text-center"><%= r.loses %></td>
+							<td class="text-center"><%= r.kills %></td>
+							<td class="text-center"><%= r.deaths %></td>
+							<td class="text-center"><%= r.assists %></td>
+							<td class="text-center"><%= r.last_hits %></td>
+							<td class="text-center"><%= r.denies %></td>
+							<td class="text-center"><%= r.top_gold_per_min %></td>
+							<td class="text-center"><%= r.top_xp_per_min %></td>
+							<td class="text-center"><%= r.penalties %></td>
+						</tr>
+						<% end %>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="12" class="text-center">
+								<%= will_paginate @ranking %>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<% else %>
+				<p><em>No hay datos</em></p>
+				<% end %>
+			</div>
+			<div class="content" id="carry">
+				<% unless @ranking_carry.length == 0 %>
+				<table width="100%">
+					<thead>
+						<tr>
+							<th width="5%" class="text-right">Posición</th>
+							<th>Nickname</th>
+							<th width="10%" class="text-center">Puntos</th>
+							<th width="5%" class="text-center">W</th>
+							<th width="5%" class="text-center">L</th>
+							<th width="5%" class="text-center">K</th>
+							<th width="5%" class="text-center">D</th>
+							<th width="5%" class="text-center">A</th>
+							<th width="5%" class="text-center">LH</th>
+							<th width="5%" class="text-center">DN</th>
+							<th width="5%" class="text-center">GPM</th>
+							<th width="5%" class="text-center">XPM</th>
+							<th width="5%" class="text-center">P</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @ranking_carry.each do |r| %>
+						<tr>
+							<td class="text-right"><%= r.current_position %></td>
+							<td><%= r.user.nickname %></td>
+							<td class="text-center"><%= r.score %></td>
+							<td class="text-center"><%= r.wins %></td>
+							<td class="text-center"><%= r.loses %></td>
+							<td class="text-center"><%= r.kills %></td>
+							<td class="text-center"><%= r.deaths %></td>
+							<td class="text-center"><%= r.assists %></td>
+							<td class="text-center"><%= r.last_hits %></td>
+							<td class="text-center"><%= r.denies %></td>
+							<td class="text-center"><%= r.top_gold_per_min %></td>
+							<td class="text-center"><%= r.top_xp_per_min %></td>
+							<td class="text-center"><%= r.penalties %></td>
+						</tr>
+						<% end %>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="12" class="text-center">
+								<%= will_paginate @ranking_carry %>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<% else %>
+				<p><em>No hay datos</em></p>
+				<% end %>
+			</div>
+			<div class="content" id="support">
+				Ránking de supports
+			</div>
+			<div class="content" id="mid">
+				Ránking de mids
+			</div>
+			<div class="content" id="offlane">
+				Ránking de offlanes
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+.pagination {
+	em.current, a, .previous_page, .next_page {
+		font-style: normal;
+		padding: 5px 10px;
+	}
+	.previous_page, .next_page {
+		font-weight: normal;
+	}
+	.disabled {
+		color: #CCC;
+	}
+}

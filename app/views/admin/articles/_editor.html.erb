@@ -1,0 +1,63 @@
+<%= tinymce_assets %>
+
+<div class="row">
+	<div class="large-11 columns">
+		<%= f.label :title, "Título" %>
+		<%= f.text_field :title %>
+	</div>
+	<div class="large-1 columns">
+		<%= f.label :hidden, "Ocultar?" %>
+		<div class="switch small">
+			<%= f.check_box :hidden %>
+			<%= f.label :hidden, "Noticia oculta?" %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		<%= f.label :description, "Descripción" %>
+		<%= f.text_area :description %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-4 columns">
+		<%= f.label :slug, "URL corta" %>
+		<%= f.text_field :slug %>
+	</div>
+	<div class="large-4 columns">
+		<%= f.label :priority, "Prioridad" %>
+		<%= f.select :priority, options_for_select([["Alta", 2], ["Media", 1], ["Normal", 0]], @article.priority) %>
+	</div>
+	<div class="large-4 columns">
+		<div class="row">
+			<%= f.label :header, "Imagen de cabecera" %>
+			<%= f.file_field :header %>
+		</div>
+		<div class="row text-center">
+			<% unless @article.header.blank? %>
+			<ul class="button-group">
+				<li><%= link_to "Ver imagen", @article.header.url(:article), {target: '_blank', class: 'button tiny'} %></li>
+				<li><%= link_to "Eliminar imagen", "#", {target: '_blank', class: 'button tiny'} %></li>
+			</ul>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+		<%= f.label :body, "Artículo" %>
+		<%= f.text_area :body, class: "tinymce", rows: 25, cols: 120 %>
+	</div>
+</div>
+
+<div class="row text-center" style="margin-top: 20px">
+	<div class="large-12 columns">
+		<%= f.hidden_field :user_id, {value: current_user.id} %>
+		<%= f.button "Guardar noticia", {type: 'submit', class: 'small button'} %>
+	</div>
+</div>
+
+<%= tinymce %>

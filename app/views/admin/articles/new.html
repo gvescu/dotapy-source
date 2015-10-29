@@ -1,0 +1,7 @@
+<div class="row text-center">
+	<h2>Nueva noticia</h2>
+</div>
+
+<%= form_for([:admin, @article]) do |f| %>
+	<%= render partial: "editor", locals: {f: f} %>
+<% end %>

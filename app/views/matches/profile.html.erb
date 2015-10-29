@@ -1,0 +1,159 @@
+<% content_for :title, @user.nickname %>
+
+<div class="text-justify">
+	<div class="row">
+		<div class="small-2 columns">
+			<%= image_tag @user.avatar_url, alt: "Avatar", class: "th" %>
+		</div>
+		<div class="small-9 columns end">
+			<h2><%= @user.nickname %></h2>
+			<% unless @user.real_name.blank? %>
+			<h5><%= (image_tag "flags_iso/24/#{@country.alpha2.downcase}.png", alt: @country.translation('es'), title: @country.translation('es'), style: "margin-right: 10px") unless @country.blank? %><%= @user.real_name %></h5>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns text-center" style="background-color:#af2200;border-color:#af2200;color:#CCC;margin-bottom:50px;padding:20px">
+		<% unless @user.ranking.blank? %>
+		DotaPy Ránking
+		<h1 style="color:white"><big><strong><%= @user.ranking.score %></strong></big></h1>
+		<p><%= image_tag "ranking/#{@user.progress}.png", alt: @user.progress %><%= @user.ranking.current_position %>º</p>
+		<% else %>
+		El jugador aún no está en el Ránking de DotaPy.
+		<% end %>
+	</div>
+</div>
+
+<% unless @user.ranking.blank? %>
+<div class="row">
+	<div class="large-6 columns">
+		<div class="row">
+			<div class="small-6 columns text-right">
+				Carry Ránking
+			</div>
+			<div class="small-6 columns text-left">
+				<%= @user.carry_ranking.blank? ? "-" : "#{@user.carry_ranking.score} (#{@user.carry_ranking.current_position}º)" %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="small-6 columns text-right">
+				Support Ránking
+			</div>
+			<div class="small-6 columns text-left">
+				<%= @user.support_ranking.blank? ? "-" : "#{@user.support_ranking.score} (#{@user.support_ranking.current_position}º)" %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="small-6 columns text-right">
+				Mid Ránking
+			</div>
+			<div class="small-6 columns text-left">
+				<%= @user.mid_ranking.blank? ? "-" : "#{@user.mid_ranking.score} (#{@user.mid_ranking.current_position}º)" %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="small-6 columns text-right">
+				Offlane Ránking
+			</div>
+			<div class="small-6 columns text-left">
+				<%= @user.offlane_ranking.blank? ? "-" : "#{@user.offlane_ranking.score} (#{@user.offlane_ranking.current_position}º)" %>
+			</div>
+		</div>
+
+		<div class="row" style="margin-top:30px">
+			<div class="small-6 columns text-right">
+				Ingreso al ránking
+			</div>
+			<div class="small-6 columns text-left">
+				<%= @user.ranking.blank? ? "-" : l(@user.ranking.created_at, format: :short) %>
+			</div>
+		</div>
+
+		<div class="row" style="margin-bottom:30px">
+			<div class="small-6 columns text-right">
+				Última conexión
+			</div>
+			<div class="small-6 columns text-left">
+				<%=l @user.last_seen, format: :short %>
+			</div>
+		</div>
+	</div>
+	<div class="large-6 columns" data-equalizer>
+		<div class="row">
+			<div class="large-12 columns text-center">
+				<p>Héroes más usados</p>
+				<% if @most_used_heroes.blank? %>
+				-
+				<% else %>
+				<% @most_used_heroes.each do |h| %>
+				<%= image_tag h.image_url_small, alt: h.name, title: h.name %>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+		<div class="row" style="margin-top:25px">
+			<div class="large-12 columns text-center">
+				<p>Últimas 5 partidas</p>
+				<div class="row" style="font-size: 12px; background-color: #333">
+					<div class="small-4 columns text-center">
+						<strong>Fecha</strong>
+					</div>
+					<div class="small-2 columns text-center">
+						<strong>Héroe</strong>
+					</div>
+					<div class="small-3 columns text-center">
+						<strong>K/D/A</strong>
+					</div>
+					<div class="small-3 columns text-center">
+						<strong>GPM/XPM</strong>
+					</div>
+				</div>
+				<% if @last_matches.blank? %>
+				<div class="row" style="font-size: 12px">
+					<div class="small-4 columns text-center">
+						-
+					</div>
+					<div class="small-2 columns text-center">
+						-
+					</div>
+					<div class="small-3 columns text-center">
+						-
+					</div>
+					<div class="small-3 columns text-center">
+						-
+					</div>
+				</div>
+				<% else %>
+				<% @last_matches.each do |m| %>
+				<div class="row" style="font-size: 12px">
+					<div class="small-4 columns text-center">
+						<%=l m.match.start_time, format: "%d/%m/%Y" %>
+					</div>
+					<div class="small-2 columns text-center">
+						<%= image_tag m.dota_hero.image_url_tiny, alt: m.dota_hero.name, title: m.dota_hero.name %>
+					</div>
+					<div class="small-3 columns text-center">
+						<%= m.kills %>/<%= m.deaths %>/<%= m.assists %>
+					</div>
+					<div class="small-3 columns text-center">
+						<%= m.gold_per_min %>/<%= m.xp_per_min %>
+					</div>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<% end %>
+
+<div class="row" style="margin-top:30px">
+	<div class="large-12 columns text-center">
+		<p><%= link_to "Ver perfil de Steam", @user.profile_url, class: "button", target: "_blank" %></p>
+	</div>
+</div>

@@ -5,7 +5,7 @@ Se necesita una **Steam Web API Key**, que se puede obtener [aquí](http://steam
 
 Para una documentación más completa de lo que se puede hacer con el Steam Web API, pueden ir [aquí](https://lab.xpaw.me/steam_api_documentation.html).
 
-Para ver un ejemplo completo (al menos del frontend), la web está disponible en http://162.243.8.47.
+Para ver un ejemplo completo (al menos del frontend), la web está disponible en http://162.243.8.47. Temporalmente también se podrá acceder desde http://dotapy.com/.
 
 # Qué incluye?
 * Librería para manejar SteamIDs (convertir entre diferentes formatos de SteamID)
